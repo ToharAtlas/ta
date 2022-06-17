@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/icon_honepage"
+            android:iconTint="@color/black"
+            android:title="מסך הבית"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/icon_logout"
+            android:iconTint="@color/black"
+            android:title="התנתקות"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/icon_profile"
+            android:title="פרופיל"
+            app:showAsAction="never" />
+    </group>
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_info"
+            android:iconTint="@color/black"
+            android:title="מידע כללי"
+            app:showAsAction="never">
+            <menu>
+                <item
+                    android:id="@+id/nav_inform"
+                    android:icon="@drawable/icon_info"
+                    android:iconTint="@color/black"
+                    android:title="מידע על המחלה"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/nav_videos"
+                    android:icon="@drawable/icon_videos"
+                    android:iconTint="@color/black"
+                    android:title="סרטונים"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/nav_links"
+                    android:icon="@drawable/icon_link"
+                    android:iconTint="@color/black"
+                    android:title="אתרים הקשורים לצליאק"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/nav_celiac_day"
+                    android:icon="@drawable/icon_day"
+                    android:iconTint="@color/black"
+                    android:title="ימי צליאק"
+                    app:showAsAction="never" />
+            </menu>
+        </item>
+        <item
+            android:id="@+id/b"
+            android:iconTint="@color/black"
+            android:title="עסקים"
+            app:showAsAction="never">
+            <menu>
+                <item
+                    android:id="@+id/nav_bakeries"
+                    android:icon="@drawable/icon_bakery"
+                    android:iconTint="@color/black"
+                    android:title="מאפיות וקונדיטוריות"
+                    app:showAsAction="never" />
+
+                <item
+                    android:id="@+id/nav_restaurants"
+                    android:icon="@drawable/icon_restaurant"
+                    android:iconTint="@color/black"
+                    android:title="מסעדות ובתי קפה"
+                    app:showAsAction="never" />
+
+                <item
+                    android:id="@+id/nav_shops"
+                    android:icon="@drawable/icon_shop"
+                    android:iconTint="@color/black"
+                    android:title="חנויות וחברות מוצרים"
+                    app:showAsAction="never" />
+            </menu>
+        </item>
+    </group>
+
+</menu>

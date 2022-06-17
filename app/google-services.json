@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "522034668375",
+    "firebase_url": "https://gluten-free-b8eb4-default-rtdb.firebaseio.com",
+    "project_id": "gluten-free-b8eb4",
+    "storage_bucket": "gluten-free-b8eb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522034668375:android:6965a7d52ad0a6235d1412",
+        "android_client_info": {
+          "package_name": "com.example.glutenfree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522034668375-vo7nqj18o2il6nrgm9fd2tg8hg2olhob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNckylcxHJLGqGBfSLLdD4gLV0Y2JG6xo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522034668375-vo7nqj18o2il6nrgm9fd2tg8hg2olhob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

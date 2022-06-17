@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cream6"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cream6"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="3dp"
+                        android:fontFamily="@font/suez_one"
+                        android:gravity="center"
+                        android:text="חיים עם צליאק"
+                        android:textColor="@color/cream3"
+                        android:textSize="40dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="170dp"
+                        android:layout_height="140dp"
+                        android:layout_gravity="left"
+                        app:srcCompat="@drawable/logo" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:fontFamily="@font/suez_one"
+                    android:gravity="right"
+                    android:text="היי ברוכים הבאים לאפליקציה חיים עם צליאק, אם את/ה חולה בצליאק הגעת למקום הנכון😉!"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="81dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:fontFamily="@font/suez_one"
+                    android:gravity="right"
+                    android:text="תוכלו למצוא כאן מידע על מחלת הצליאק, סרטונים בנושא, חנויות מסעדות מאפיות וקונדיטוריות בכל הארץ והכל ללא גלוטן!"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="81dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:fontFamily="@font/suez_one"
+                    android:gravity="right"
+                    android:text="הירשמו לאפליקציה בשביל לצפות בחוות הדעת והתגובות של אנשים אחרים על המסעדות, המאפיות וחנויות מוצרי הצליאק בארץ."
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="81dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:fontFamily="@font/suez_one"
+                    android:gravity="right"
+                    android:text="בעת ההרשמה ניתן לבחור באופציה של פרופיל עסקי, ובכך  להוסיף ולפרסם את המסעדה, המאפיה או את חנות המוצרים שלכם!"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_width="280dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/celiac_main_pic" />
+
+                <!--LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="הרשמה"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="התחברות"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+
+            </LinearLayout-->
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:gravity="right"
+
+        />
+
+</androidx.drawerlayout.widget.DrawerLayout>

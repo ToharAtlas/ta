@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
+        <item
+            android:id="@+id/nav_home"
+            android:iconTint="@color/black"
+            android:title="מסך הבית"
+            app:showAsAction="never"
+            android:icon="@drawable/icon_honepage"
+            />
+        <item
+            android:id="@+id/nav_register"
+            android:iconTint="@color/black"
+            android:title="הרשמה"
+            app:showAsAction="never"
+            android:icon="@drawable/icon_register"/>
+        <item
+            android:id="@+id/nav_login"
+            android:iconTint="@color/black"
+            android:icon="@drawable/icon_login"
+            android:title="התחברות"
+            app:showAsAction="never"/>
+    </group>
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group2">
+        <item
+            android:id="@+id/nav_info"
+            android:iconTint="@color/black"
+            android:title="מידע כללי"
+            app:showAsAction="never">
+            <menu>
+                <item
+                    android:id="@+id/nav_inform"
+                    android:iconTint="@color/black"
+                    android:title="מידע על המחלה"
+                    app:showAsAction="never"
+                    android:icon="@drawable/icon_info"/>
+                <item
+                    android:id="@+id/nav_videos"
+                    android:iconTint="@color/black"
+                    android:icon="@drawable/icon_videos"
+                    android:title="סרטונים"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/nav_links"
+                    android:iconTint="@color/black"
+                    android:icon="@drawable/icon_link"
+                    android:title="אתרים הקשורים לצליאק"
+                    app:showAsAction="never"/>
+                <item
+                    android:id="@+id/nav_celiac_day"
+                    android:iconTint="@color/black"
+                    android:icon="@drawable/icon_day"
+                    android:title="ימי צליאק"
+                    app:showAsAction="never"/>
+            </menu>
+        </item>
+    <item
+        android:id="@+id/b"
+        android:iconTint="@color/black"
+        android:icon="@drawable/icon_location"
+        android:title="עסקים"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/nav_bakeries"
+                android:iconTint="@color/black"
+                android:icon="@drawable/icon_bakery"
+                android:title="מאפיות וקונדיטוריות"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/nav_restaurants"
+                android:iconTint="@color/black"
+                android:icon="@drawable/icon_restaurant"
+                android:title="מסעדות ובתי קפה"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/nav_shops"
+                android:iconTint="@color/black"
+                android:icon="@drawable/icon_shop"
+                android:title="חנויות וחברות מוצרים"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+    </group>
+
+
+
+</menu>
