@@ -234,7 +234,7 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
 
             }
         } catch (IOException e) {
-            Log.wtf("register", "Error while reading data file" + line, e);
+            Log.wtf("findData", "Error while reading data file" + line, e);
             e.printStackTrace();
         }
     }
