@@ -220,16 +220,9 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
                 p = new ProgressDialog(this);
                 p.setMessage("תהליך הוספת העסק למערכת מתבצעת כעת");
                 p.show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        p.dismiss();
-                    }
-                }, 3000);
 
                 databaseReference = databaseReference.push();
                 business b = new business(Type, Name, Description, Address, AddressCity, Opening_hours, Site_link, Facebook_link, Prices, Delivering, Phone, StringPictures, Video, databaseReference.getKey(), new ArrayList<String>());
-
                 databaseReference.setValue(b);
                 for (int i = 0; i < UriPictures.size(); i++) {
                     storageReference = FirebaseStorage.getInstance().getReference("business/" + businessName.getText().toString());
@@ -245,7 +238,7 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
                         }
                     });
                 }
-
+                p.dismiss();
                 Toast.makeText(addBusiness.this, "הוספת העסק הצליחה!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(addBusiness.this, MainActivity.class);
                 startActivity(intent);

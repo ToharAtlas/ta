@@ -49,7 +49,8 @@
         android:gravity="right"
         android:text="כתובת בית העסק: "
         android:textColor="@color/cream3"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        />
 
     <TextView
         android:id="@+id/tvOpeningHours"

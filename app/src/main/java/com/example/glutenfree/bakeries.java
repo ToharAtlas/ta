@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -56,7 +58,8 @@ import java.util.List;
 
 public class bakeries extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
     Button search;
-    LinearLayout linearLayout;
+    LinearLayout linearLayout1, linearLayout2;
+    ImageView Link1, Link2, Link3, Link4;
     TextView businessType;
     Spinner filter;
     String item;
@@ -89,6 +92,16 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_bakeries);
             businessType = findViewById(R.id.businessType);
+            linearLayout1 = findViewById(R.id.linearLayout1);
+            linearLayout2 = findViewById(R.id.linearLayout2);
+            Link1 = findViewById(R.id.link1_carmit);
+            Link1.setOnClickListener(this);
+            Link2 = findViewById(R.id.link2_alma);
+            Link2.setOnClickListener(this);
+            Link3 = findViewById(R.id.link3_scher);
+            Link3.setOnClickListener(this);
+            Link4 = findViewById(R.id.link4_green_lite);
+            Link4.setOnClickListener(this);
             i = getIntent();
             search = findViewById(R.id.search);
             search.setOnClickListener(this);
@@ -333,6 +346,8 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
             if (i.getExtras().getString("shops") != null) {
                 if (i.getExtras().getString("shops").equals("shops")) {
                     businessType.setText("חנויות וחברות מוצרים:");
+                    linearLayout1.setVisibility(View.VISIBLE);
+                    linearLayout2.setVisibility(View.VISIBLE);
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -431,6 +446,35 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
+        if (v == Link1) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("https://www.carmit.co.il/pcat/%D7%9E%D7%95%D7%A6%D7%A8%D7%99%D7%9D-%D7%9C%D7%9C%D7%90-%D7%92%D7%9C%D7%95%D7%98%D7%9F/"));
+            startActivity(intent);
+        }
+        if (v == Link2) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("https://gilro.co.il/product-category/wafels/gluten-free/"));
+            startActivity(intent);
+        }
+        if (v == Link3) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("https://www.schaer.com/de-de"));
+            startActivity(intent);
+        }
+        if (v == Link4) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("http://www.greenlite.co.il/"));
+            startActivity(intent);
+        }
+
         if (v == search) {
             if (chosen == null) {
                 Toast.makeText(this, "יש לבחור דרך סינון", Toast.LENGTH_SHORT).show();
@@ -444,9 +488,8 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
                     for (int i = 0; i < businesses.size(); i++) {
                         if (item.contains(businesses.get(i).getAddressCity())) {
                             byCity.add(businesses.get(i));
-                        }
-                        else {
-                            if(businesses.get(i).getAddressCity().contains(item)){
+                        } else {
+                            if (businesses.get(i).getAddressCity().contains(item)) {
                                 byCity.add(businesses.get(i));
                             }
                         }
