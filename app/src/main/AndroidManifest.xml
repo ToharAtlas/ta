@@ -18,12 +18,6 @@
         android:theme="@style/Theme.GlutenFree"
         tools:replace="android:label">
         <activity
-            android:name=".Shops"
-            android:exported="false" />
-        <activity
-            android:name=".Restaurants"
-            android:exported="false" />
-        <activity
             android:name=".UpdateUser"
             android:exported="false" />
         <activity
