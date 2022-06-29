@@ -32,7 +32,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(Holder viewHolder, int position) {
-        Picasso.with(context).load(images.get(position));
+        Picasso.with(context).load(images.get(position)).into(viewHolder.imageView);
      //   viewHolder.imageView.setImageURI());
 
     }

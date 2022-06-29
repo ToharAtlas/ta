@@ -91,14 +91,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Na
         try {
             password = Password.getText().toString();
             email = Email.getText().toString();
-            check.setInputEditText(Password);
-            if (!check.checkPass(password)) {
-                throw new Exception();
-            }
             check.setInputEditText(Email);
             if (!check.checkMail(email)) {
                 throw new Exception();
             }
+            check.setInputEditText(Password);
+            if (!check.checkPass(password)) {
+                throw new Exception();
+            }
+
             final ProgressDialog pd = ProgressDialog.show(this, "מתחבר...", "אנא המתן", true);
             pd.show();
             DatabaseReference databaseReference = firebaseDatabase.getReference("users");
@@ -154,7 +155,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Na
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            if (e.getMessage() != null)
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -223,7 +225,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Na
             finish();
         }
         if (id == R.id.nav_links) {
-            Intent i = new Intent(Login.this,links.class);
+            Intent i = new Intent(Login.this, links.class);
             startActivity(i);
             finish();
         }
@@ -234,16 +236,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Na
         }
         if (id == R.id.nav_bakeries) {
             Intent i = new Intent(Login.this, bakeries.class);
+            i.putExtra("bakeries", "bakeries");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_restaurants) {
-            Intent i = new Intent(Login.this, MainActivity.class);
+            Intent i = new Intent(Login.this, bakeries.class);
+            i.putExtra("restaurants", "restaurants");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_shops) {
-            Intent i = new Intent(Login.this, MainActivity.class);
+            Intent i = new Intent(Login.this, bakeries.class);
+            i.putExtra("shops", "shops");
             startActivity(i);
             finish();
         }

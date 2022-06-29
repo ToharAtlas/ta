@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cream6"
+    android:background="@drawable/border"
     android:orientation="vertical">
 
 
@@ -73,7 +73,8 @@
         android:gravity="right"
         android:text="אתר בית העסק: "
         android:textColor="@color/cream3"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tvFacebookLink"
@@ -85,7 +86,8 @@
         android:gravity="right"
         android:text="עמוד הפייסבוק של בית העסק: "
         android:textColor="@color/cream3"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tvPrices"
@@ -123,18 +125,19 @@
         android:textColor="@color/cream3"
         android:textSize="20dp" />
 
+
     <TextView
-        android:id="@+id/tvRating"
+        android:id="@+id/tvGallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:fontFamily="@font/suez_one"
         android:gravity="right"
-        android:text="5     4     3     2     1"
+        android:text="גלריית תמונות: "
         android:textColor="@color/cream3"
-        android:textSize="20dp" />
-
+        android:textSize="20dp"
+        android:visibility="gone"/>
 
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/image_slider"
@@ -152,14 +155,84 @@
         app:sliderIndicatorSelectedColor="#5A5A5A"
         app:sliderIndicatorUnselectedColor="#FFF"
         app:sliderScrollTimeInSec="2"
-        app:sliderStartAutoCycle="true" />
+        app:sliderStartAutoCycle="true"
+        android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/tvVid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/suez_one"
+        android:gravity="right"
+        android:text="סרטון: "
+        android:textColor="@color/cream3"
+        android:textSize="20dp"
+        android:visibility="gone"/>
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:visibility="gone"
         app:autoPlay="false"
-        app:showFullScreenButton="false"
-        app:videoId="" />
+        app:showFullScreenButton="false" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border2"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/suez_one"
+            android:gravity="right"
+            android:text="ביקורות: "
+            android:textColor="@color/cream3"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/etEditTextReviews"
+            android:layout_width="206dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="שלח"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="vertical"
+            android:outlineAmbientShadowColor="@color/cream2">
+
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
+

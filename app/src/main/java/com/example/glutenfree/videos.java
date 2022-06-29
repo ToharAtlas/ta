@@ -132,16 +132,19 @@ public class videos extends AppCompatActivity implements NavigationView.OnNaviga
         }
         if (id == R.id.nav_bakeries) {
             Intent i = new Intent(videos.this, bakeries.class);
+            i.putExtra("bakeries", "bakeries");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_restaurants) {
-            Intent i = new Intent(videos.this, MainActivity.class);
+            Intent i = new Intent(videos.this, bakeries.class);
+            i.putExtra("restaurants", "restaurants");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_shops) {
-            Intent i = new Intent(videos.this, MainActivity.class);
+            Intent i = new Intent(videos.this, bakeries.class);
+            i.putExtra("shops", "shops");
             startActivity(i);
             finish();
         }

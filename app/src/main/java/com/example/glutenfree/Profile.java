@@ -116,7 +116,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener, 
         if (profileImage == v) {
             adb = new AlertDialog.Builder(this);
             adb.setTitle("בחירת תמונה");
-            adb.setMessage("אתה הולך לבחור תמונה או מהגלריה או מצלמה");
+            adb.setMessage("את/ה עומד/ת לבחור תמונה מהגלריה");
             adb.setCancelable(true);
             adb.setPositiveButton("גלריה", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface d, int i) {
@@ -128,10 +128,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener, 
 
                 }
             });
-            adb.setNeutralButton("מצלמה", new DialogInterface.OnClickListener() {
+            adb.setNeutralButton("ביטול", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface d, int i) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, 1);
+
                 }
             });
             ad = adb.create();
@@ -288,16 +287,19 @@ public class Profile extends AppCompatActivity implements View.OnClickListener, 
         }
         if (id == R.id.nav_bakeries) {
             Intent i = new Intent(Profile.this, bakeries.class);
+            i.putExtra("bakeries", "bakeries");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_restaurants) {
-            Intent i = new Intent(Profile.this, MainActivity.class);
+            Intent i = new Intent(Profile.this, bakeries.class);
+            i.putExtra("restaurants", "restaurants");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_shops) {
-            Intent i = new Intent(Profile.this, MainActivity.class);
+            Intent i = new Intent(Profile.this, bakeries.class);
+            i.putExtra("shops", "shops");
             startActivity(i);
             finish();
         }

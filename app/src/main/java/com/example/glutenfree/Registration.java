@@ -101,31 +101,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        /*if(ProfileImage==v){
-            adb = new AlertDialog.Builder(this);
-            adb.setTitle("בחירת תמונה");
-            adb.setMessage("אתה הולך לבחור תמונה או מהגלריה או מצלמה");
-            adb.setCancelable(true);
-            adb.setPositiveButton("גלריה", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface d, int i) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-
-                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
-
-                }
-            });
-            adb.setNeutralButton("מצלמה", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface d, int i) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, 1);
-                }
-            });
-            ad = adb.create();
-            ad.show();
-        }*/
-
         if (v == button) {
             try {
                 firstname = FirstName.getText().toString();
@@ -155,7 +130,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
 
             } catch (Exception e) {
-                if(e.getMessage()!= null)
+                if (e.getMessage() != null)
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
@@ -256,12 +231,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             startActivity(i);
             finish();
         }
-        /*
-        if (id == R.id.nav_info) {
-            Intent i = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }*/
         if (id == R.id.nav_inform) {
             Intent i = new Intent(Registration.this, information.class);
             startActivity(i);
@@ -284,16 +253,19 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
         if (id == R.id.nav_bakeries) {
             Intent i = new Intent(Registration.this, bakeries.class);
+            i.putExtra("bakeries", "bakeries");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_restaurants) {
-            Intent i = new Intent(Registration.this, MainActivity.class);
+            Intent i = new Intent(Registration.this, bakeries.class);
+            i.putExtra("restaurants", "restaurants");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_shops) {
-            Intent i = new Intent(Registration.this, MainActivity.class);
+            Intent i = new Intent(Registration.this, bakeries.class);
+            i.putExtra("shops", "shops");
             startActivity(i);
             finish();
         }

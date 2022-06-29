@@ -51,10 +51,10 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
     Spinner spinner;
     ArrayList<String> businessType;
     Switch isDelivering;
-    String Delivering, editedVideo;
-    String Type, Name, Description, Address,AddressCity, Opening_hours, Site_link, Facebook_link, Prices, Delivery_services, Phone, Video, Key;
+    String Delivering;
+    String Type, Name, Description, Address, AddressCity, Opening_hours, Site_link, Facebook_link, Prices, Delivery_services, Phone, Video, Key;
     TextInputLayout shippingServices;
-    TextInputEditText businessName, businessAddress,businessAddressCity, businessDescription, openingHours, siteLink, facebookLink, prices, phone, video;
+    TextInputEditText businessName, businessAddress, businessAddressCity, businessDescription, openingHours, siteLink, facebookLink, prices, phone, video;
     Button picturesPicker, send;
     ArrayList<String> StringPictures;
     ArrayList<Uri> UriPictures;
@@ -92,9 +92,11 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
                 if (!((TextView) view).getText().toString().equals("בחר")) {
                     textType.setText("סוג העסק: " + ((TextView) view).getText());
                     chosen = ((TextView) view).getText().toString();
-                } else
+                } else {
                     textType.setText("סוג העסק: " + ((TextView) view).getText());
-                Toast.makeText(addBusiness.this, "יש לבחור את סוג העסק!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addBusiness.this, "יש לבחור את סוג העסק!", Toast.LENGTH_SHORT).show();
+                    chosen = null;
+                }
             }
 
             @Override
@@ -137,11 +139,6 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
         StringPictures = new ArrayList<>();
         UriPictures = new ArrayList<>();
         video = findViewById(R.id.video);
-      /*  editedVideo = video.getText().toString();
-        for (int i = 0; i < editedVideo.length(); i++) {
-            if (editedVideo.charAt(i) == '=')
-                editedVideo = editedVideo.substring(i + 1);
-        }*/
         send = findViewById(R.id.send);
         send.setOnClickListener(this);
 
@@ -162,6 +159,7 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v == picturesPicker) {
+
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -169,61 +167,93 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
         }
         if (v == send) {
-            Name = businessName.getText().toString();
-            Type = chosen;
-            Description = businessDescription.getText().toString();
-            Address = businessAddress.getText().toString();
-            AddressCity = businessAddressCity.getText().toString();
-            Opening_hours = openingHours.getText().toString();
-            Site_link = siteLink.getText().toString();
-            Facebook_link = facebookLink.getText().toString();
-            Prices = prices.getText().toString();
-            Delivery_services = Delivering;
-            Phone = phone.getText().toString();
-            Video= video.getText().toString();
-            databaseReference = databaseReference.push();
-            business b=new business(Type, Name, Description, Address,AddressCity, Opening_hours, Site_link, Facebook_link, Prices, Delivery_services, Phone, "0", StringPictures, Video, databaseReference.getKey(), new ArrayList<String>());
-            for(int i = 0; i <UriPictures.size(); i++) {
-                storageReference = FirebaseStorage.getInstance().getReference("business/"+Name);
-                storageReference = storageReference.child(StringPictures.get(i));
-                storageReference.putFile(UriPictures.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            try {
+                if (chosen == null)
+                    Toast.makeText(addBusiness.this, "יש לבחור את סוג העסק!", Toast.LENGTH_SHORT).show();
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-            }
-            databaseReference.setValue(b);
-            p = new ProgressDialog(this);
-            p.setMessage("תהליך הוספת העסק למערכת מתבצעת כעת");
-            p.show();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    p.dismiss();
+                if (!Delivering.equals(false)) {
+                    Delivering = shippingServices.getEditText().getText().toString();
                 }
-            }, 3000);
-            Toast.makeText(addBusiness.this, "הוספת העסק הצליחה!", Toast.LENGTH_LONG).show();
-            Intent intent=new Intent(addBusiness.this,MainActivity.class);
-            startActivity(intent);
-            finish();
-            /*try {
-                check.setInputEditText(Password);
-                if (!check.checkPass(password)) {
+                Name = businessName.getText().toString();
+                Type = chosen;
+                Description = businessDescription.getText().toString();
+                Address = businessAddress.getText().toString();
+                AddressCity = businessAddressCity.getText().toString();
+                Opening_hours = openingHours.getText().toString();
+                Site_link = siteLink.getText().toString();
+                Facebook_link = facebookLink.getText().toString();
+                Prices = prices.getText().toString();
+                Delivery_services = Delivering;
+                Phone = phone.getText().toString();
+                Video = video.getText().toString();
+
+                check.setInputEditText(businessName);
+                if (!check.checkBusinessName(Name)) {
                     throw new Exception();
                 }
-                check.setInputEditText(Email);
-                if (!check.checkMail(mail)){
+                check.setInputEditText(businessDescription);
+                if (!check.checkBusinessDescription(Description)) {
                     throw new Exception();
                 }
+                check.setInputEditText(businessAddress);
+                if (!check.checkBusinessAddress(Address)) {
+                    throw new Exception();
+                }
+                check.setInputEditText(businessAddressCity);
+                if (!check.checkBusinessCityAddress(AddressCity)) {
+                    throw new Exception();
+                }
+                check.setInputEditText(openingHours);
+                if (!check.checkOpeningHours(Opening_hours)) {
+                    throw new Exception();
+                }
+                check.setInputEditText(phone);
+                if (!check.checkPhone(Phone)) {
+                    throw new Exception();
+                }
+                if (isDelivering.isChecked()) {
+                    check.setInputText(Delivering);
+                    if (!check.checkDeliveryDetails(Delivery_services)) {
+                        throw new Exception();
+                    }
+                }
+                p = new ProgressDialog(this);
+                p.setMessage("תהליך הוספת העסק למערכת מתבצעת כעת");
+                p.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        p.dismiss();
+                    }
+                }, 3000);
+
+                databaseReference = databaseReference.push();
+                business b = new business(Type, Name, Description, Address, AddressCity, Opening_hours, Site_link, Facebook_link, Prices, Delivering, Phone, StringPictures, Video, databaseReference.getKey(), new ArrayList<String>());
+
+                databaseReference.setValue(b);
+                for (int i = 0; i < UriPictures.size(); i++) {
+                    storageReference = FirebaseStorage.getInstance().getReference("business/" + businessName.getText().toString());
+                    storageReference = storageReference.child(StringPictures.get(i));
+                    storageReference.putFile(UriPictures.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+                }
+
+                Toast.makeText(addBusiness.this, "הוספת העסק הצליחה!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(addBusiness.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             } catch (Exception e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }*/
+                if (e.getMessage() != null)
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -291,19 +321,13 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
             startActivity(i);
             finish();
         }
-        /*
-        if (id == R.id.nav_info) {
-            Intent i = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }*/
         if (id == R.id.nav_inform) {
             Intent i = new Intent(addBusiness.this, information.class);
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_links) {
-            Intent i = new Intent(addBusiness.this,links.class);
+            Intent i = new Intent(addBusiness.this, links.class);
             startActivity(i);
             finish();
         }
@@ -319,16 +343,19 @@ public class addBusiness extends AppCompatActivity implements View.OnClickListen
         }
         if (id == R.id.nav_bakeries) {
             Intent i = new Intent(addBusiness.this, bakeries.class);
+            i.putExtra("bakeries", "bakeries");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_restaurants) {
-            Intent i = new Intent(addBusiness.this, MainActivity.class);
+            Intent i = new Intent(addBusiness.this, bakeries.class);
+            i.putExtra("restaurants", "restaurants");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_shops) {
-            Intent i = new Intent(addBusiness.this, MainActivity.class);
+            Intent i = new Intent(addBusiness.this, bakeries.class);
+            i.putExtra("shops", "shops");
             startActivity(i);
             finish();
         }

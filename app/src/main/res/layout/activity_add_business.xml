@@ -129,9 +129,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
                     android:gravity="right"
-                    android:hint="כתובת בית העסק המלאה"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="50"
+                    android:hint="כתובת בית העסק המלאה/ רשימת סניפים"
                     app:endIconMode="clear_text"
                     app:helperText="*שדה חובה"
                     app:helperTextTextColor="@color/red"
@@ -141,8 +139,7 @@
                         android:id="@+id/businessAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:maxLength="50" />
+                        android:layout_gravity="center" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -153,9 +150,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
                     android:gravity="right"
-                    android:hint=" הכנס רק את העיר"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="50"
+                    android:hint=" הכנס רק את העיר/ ערים"
                     app:endIconMode="clear_text"
                     app:helperText="*שדה חובה"
                     app:helperTextTextColor="@color/red"
@@ -165,9 +160,9 @@
                         android:id="@+id/businessAddressCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:maxLength="50" />
+                        android:layout_gravity="center" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"

@@ -14,13 +14,12 @@ public class business {
     private String prices;
     private String delivery_services;
     private String phone;
-    private String rating;
     private ArrayList<String> pictures;
     private String video;
     private String key;
     private ArrayList<String> reviews;
 
-    public business(String type, String name, String description, String address, String addressCity, String opening_hours, String site_link, String facebook_link, String prices, String delivery_services, String phone, String rating, ArrayList<String> pictures, String video, String key, ArrayList<String> reviews) {
+    public business(String type, String name, String description, String address, String addressCity, String opening_hours, String site_link, String facebook_link, String prices, String delivery_services, String phone, ArrayList<String> pictures, String video, String key, ArrayList<String> reviews) {
         this.type = type;
         this.name = name;
         this.description = description;
@@ -32,7 +31,6 @@ public class business {
         this.prices = prices;
         this.delivery_services = delivery_services;
         this.phone = phone;
-        this.rating = rating;
         this.pictures = pictures;
         this.video = video;
         this.key = key;
@@ -130,14 +128,6 @@ public class business {
         this.phone = phone;
     }
 
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
     public ArrayList<String> getPictures() {
         return pictures;
     }
@@ -184,7 +174,6 @@ public class business {
                 ", prices='" + prices + '\'' +
                 ", delivery_services='" + delivery_services + '\'' +
                 ", phone='" + phone + '\'' +
-                ", rating='" + rating + '\'' +
                 ", pictures=" + pictures +
                 ", video='" + video + '\'' +
                 ", key='" + key + '\'' +

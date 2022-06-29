@@ -8,6 +8,7 @@ public class check_Input {
     private String isnot = "+*%@$!#^()_={}[]/|&`~:.;'" + '"' + " ";
     private Context context;
     private TextInputEditText inputEditText;
+    private String text;
 
     public check_Input(Context context) {
         this.context = context;
@@ -17,6 +18,9 @@ public class check_Input {
         this.inputEditText = inputEditText;
     }
 
+    public void setInputText(String text) {
+        this.text = text;
+    }
 
     public boolean checkName(String name) {
         boolean f = true;
@@ -82,8 +86,7 @@ public class check_Input {
 
     public boolean checkMail(String mail) {
         boolean f = true;
-        int i, j;
-
+        int i, j, counter;
         try {
             if (mail.length() == 0) {
                 f = false;
@@ -138,8 +141,8 @@ public class check_Input {
             for (i = 0; i < mail.length(); i++) {
                 if (mail.toString().charAt(i) == ' ')
                     throw new Exception("מייל אינו יכול להכיל רווחים");
-
             }
+
         } catch (Exception e) {
             inputEditText.setError(e.getMessage());
             return f;
@@ -151,8 +154,6 @@ public class check_Input {
     public boolean checkBusinessName(String businessName) {
         boolean f = true;
         try {
-            int i, j;
-            boolean f1 = true, f2 = true;
             if (businessName.length() == 0) {
                 f = false;
                 throw new Exception("יש למלא את שם בית העסק");
@@ -167,8 +168,6 @@ public class check_Input {
     public boolean checkBusinessDescription(String businessDescription) {
         boolean f = true;
         try {
-            int i, j;
-            boolean f1 = true, f2 = true;
             if (businessDescription.length() == 0) {
                 f = false;
                 throw new Exception("יש למלא את תיאור פרטי העסק");
@@ -183,8 +182,6 @@ public class check_Input {
     public boolean checkBusinessAddress(String businessAddress) {
         boolean f = true;
         try {
-            int i, j;
-            boolean f1 = true, f2 = true;
             if (businessAddress.length() == 0) {
                 f = false;
                 throw new Exception("יש להזין את כתובת בית העסק");
@@ -196,14 +193,40 @@ public class check_Input {
         return f;
     }
 
+    public boolean checkBusinessCityAddress(String businessAddress) {
+        boolean f = true;
+        try {
+            if (businessAddress.length() == 0) {
+                f = false;
+                throw new Exception("יש להזין את העיר בו נמאצ העסק, או הערים בו נמצאים סניפי העסק");
+            }
+        } catch (Exception e) {
+            inputEditText.setError(e.getMessage());
+            return f;
+        }
+        return f;
+    }
+
     public boolean checkOpeningHours(String businessOpeningHours) {
         boolean f = true;
         try {
-            int i, j;
-            boolean f1 = true, f2 = true;
             if (businessOpeningHours.length() == 0) {
                 f = false;
                 throw new Exception("יש להזין את שעות הפעילות של העסק");
+            }
+        } catch (Exception e) {
+            inputEditText.setError(e.getMessage());
+            return f;
+        }
+        return f;
+    }
+
+    public boolean checkDeliveryDetails(String deliveryDetails) {
+        boolean f = true;
+        try {
+            if (deliveryDetails.length() == 0) {
+                f = false;
+                throw new Exception("יש להזין את דרכי המשלוח");
             }
         } catch (Exception e) {
             inputEditText.setError(e.getMessage());
@@ -232,9 +255,11 @@ public class check_Input {
                         phone.charAt(i) <= '9')) {
                     f = false;
                     throw new Exception("מס' טלפון חייב להכיל ספרות בלבד");
-
-
                 }
+            }
+            if ((!phone.startsWith("050")) && (!phone.startsWith("052")) && (!phone.startsWith("053")) && (!phone.startsWith("054")) && (!phone.startsWith("055")) && (!phone.startsWith("057")) && (!phone.startsWith("058")) && (!phone.startsWith("077")) && (!phone.startsWith("08") && (!phone.startsWith("03")))) {
+                f = false;
+                throw new Exception("הקידומת אינה תקינה");
             }
         } catch (Exception e) {
             inputEditText.setError(e.getMessage());

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/drawable/border.xml" value="0.23981481481481481" />
+        <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/drawable/border2.xml" value="0.925" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/drawable/icon_bakery.xml" value="0.23703703703703705" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/drawable/icon_day.xml" value="0.23703703703703705" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/font/abril_fatface.xml" value="0.2657407407407407" />
@@ -17,6 +19,7 @@
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/activity_registration.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/activity_restaurants.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/activity_update_user.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/activity_videos.xml" value="0.2509057971014493" />
@@ -24,6 +27,7 @@
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/dialog_wifi.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/links.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/reviews_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/slider_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/layout/toolbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nir/AndroidStudioProjects/GlutenFree2/app/src/main/res/menu/main_menu.xml" value="0.25416666666666665" />

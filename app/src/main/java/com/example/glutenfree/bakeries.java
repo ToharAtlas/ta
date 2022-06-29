@@ -5,15 +5,21 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
@@ -24,6 +30,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -48,13 +55,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class bakeries extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
-    TextView textFilter;
     Button search;
+    LinearLayout linearLayout;
+    TextView businessType;
     Spinner filter;
+    String item;
     String chosen;
+    businessAdapter businessAdapter;
     Spinner cities;
     ArrayList<String> list1 = new ArrayList<>();
-    ArrayList<String> list2 = new ArrayList<>();
     ArrayList<String> businessFilter;
     AlertDialog.Builder adb;
     AlertDialog ad;
@@ -70,6 +79,8 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
     ArrayList<business> byBoth = new ArrayList<>();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = firebaseDatabase.getReference("business");
+    RecyclerView recyclerView;
+    Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +88,8 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_bakeries);
+            businessType = findViewById(R.id.businessType);
+            i = getIntent();
             search = findViewById(R.id.search);
             search.setOnClickListener(this);
             cities = findViewById(R.id.cities);
@@ -91,9 +104,10 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
             businessFilter.add("סינון לפי עיר");
             businessFilter.add("מבצעים משלוחים");
             businessFilter.add("גם וגם");
-
+            recyclerView = findViewById(R.id.recycler_view);
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, businessFilter);
             filter.setAdapter(dataAdapter);
+            businessAdapter = new businessAdapter(new ArrayList<>(), bakeries.this);
             filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 @Override
@@ -130,40 +144,286 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
             navigationView.setNavigationItemSelectedListener(this);
             drawerToggle = new EndDrawerToggle(drawerLayout, toolbar, R.string.open, R.string.close);
             drawerLayout.addDrawerListener(drawerToggle);
+            if (i.getExtras().getString("bakeries") != null) {
+                if (i.getExtras().getString("bakeries").equals("bakeries")) {
+                    businessType.setText("מאפיות וקונדיטוריות:");
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                                if (singleSnapshot.child("type").getValue().toString().equals("מאפיה/קונדיטוריה")) {
+                                    if (singleSnapshot.child("pictures") != null && singleSnapshot.child("reviews") != null) {
+                                        businesses.add(new business(
+                                                singleSnapshot.child("type").getValue().toString(),
+                                                singleSnapshot.child("name").getValue().toString(),
+                                                singleSnapshot.child("description").getValue().toString(),
+                                                singleSnapshot.child("address").getValue().toString(),
+                                                singleSnapshot.child("addressCity").getValue().toString(),
+                                                singleSnapshot.child("opening_hours").getValue().toString(),
+                                                singleSnapshot.child("site_link").getValue().toString(),
+                                                singleSnapshot.child("facebook_link").getValue().toString(),
+                                                singleSnapshot.child("prices").getValue().toString(),
+                                                singleSnapshot.child("delivery_services").getValue().toString(),
+                                                singleSnapshot.child("phone").getValue().toString(),
+                                                (ArrayList<String>) singleSnapshot.child("pictures").getValue(),
+                                                singleSnapshot.child("video").getValue().toString(),
+                                                singleSnapshot.child("key").getValue().toString(),
+                                                (ArrayList<String>) singleSnapshot.child("reviews").getValue()));
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot
-                            singleSnapshot : snapshot.getChildren()) {
-                        if (singleSnapshot.child("type").getValue().toString().equals("מאפיה/קונדיטוריה")) {
-                            businesses.add(new business(
-                                    singleSnapshot.child("type").getValue().toString(),
-                                    singleSnapshot.child("name").getValue().toString(),
-                                    singleSnapshot.child("description").getValue().toString(),
-                                    singleSnapshot.child("address").getValue().toString(),
-                                    singleSnapshot.child("addressCity").getValue().toString(),
-                                    singleSnapshot.child("opening_hours").getValue().toString(),
-                                    singleSnapshot.child("site_link").getValue().toString(),
-                                    singleSnapshot.child("facebook_link").getValue().toString(),
-                                    singleSnapshot.child("prices").getValue().toString(),
-                                    singleSnapshot.child("delivery_services").getValue().toString(),
-                                    singleSnapshot.child("phone").getValue().toString(),
-                                    singleSnapshot.child("rating").getValue().toString(),
-                                    (ArrayList<String>) singleSnapshot.child("pictures").getValue(),
-                                    singleSnapshot.child("video").getValue().toString(),
-                                    singleSnapshot.child("key").getValue().toString(),
-                                    null));
+                                    } else {
+                                        if (singleSnapshot.child("pictures") != null) {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    (ArrayList<String>) singleSnapshot.child("pictures").getValue(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    new ArrayList<>()));
+                                        } else if (singleSnapshot.child("reviews") != null) {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    new ArrayList<>(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    (ArrayList<String>) singleSnapshot.child("reviews").getValue()));
+                                        } else {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    new ArrayList<>(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    new ArrayList<>()));
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    }
+                    });
                 }
+            }
+            if (i.getExtras().getString("restaurants") != null) {
+                if (i.getExtras().getString("restaurants").equals("restaurants")) {
+                    businessType.setText("מסעדות ובתי קפה:");
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                                if (singleSnapshot.child("type").getValue().toString().equals("מסעדה/ בית קפה")) {
+                                    if (singleSnapshot.child("pictures") != null && singleSnapshot.child("reviews") != null) {
+                                        businesses.add(new business(
+                                                singleSnapshot.child("type").getValue().toString(),
+                                                singleSnapshot.child("name").getValue().toString(),
+                                                singleSnapshot.child("description").getValue().toString(),
+                                                singleSnapshot.child("address").getValue().toString(),
+                                                singleSnapshot.child("addressCity").getValue().toString(),
+                                                singleSnapshot.child("opening_hours").getValue().toString(),
+                                                singleSnapshot.child("site_link").getValue().toString(),
+                                                singleSnapshot.child("facebook_link").getValue().toString(),
+                                                singleSnapshot.child("prices").getValue().toString(),
+                                                singleSnapshot.child("delivery_services").getValue().toString(),
+                                                singleSnapshot.child("phone").getValue().toString(),
+                                                (ArrayList<String>) singleSnapshot.child("pictures").getValue(),
+                                                singleSnapshot.child("video").getValue().toString(),
+                                                singleSnapshot.child("key").getValue().toString(),
+                                                (ArrayList<String>) singleSnapshot.child("reviews").getValue()));
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                                    } else {
+                                        if (singleSnapshot.child("pictures") != null) {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    (ArrayList<String>) singleSnapshot.child("pictures").getValue(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    new ArrayList<>()));
+                                        } else if (singleSnapshot.child("reviews") != null) {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    new ArrayList<>(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    (ArrayList<String>) singleSnapshot.child("reviews").getValue()));
+                                        } else {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    new ArrayList<>(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    new ArrayList<>()));
+                                        }
 
+                                    }
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
-            });
+            }
+            if (i.getExtras().getString("shops") != null) {
+                if (i.getExtras().getString("shops").equals("shops")) {
+                    businessType.setText("חנויות וחברות מוצרים:");
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                                if (singleSnapshot.child("type").getValue().toString().equals("חנות מוצרים")) {
+                                    if (singleSnapshot.child("pictures") != null && singleSnapshot.child("reviews") != null) {
+                                        businesses.add(new business(
+                                                singleSnapshot.child("type").getValue().toString(),
+                                                singleSnapshot.child("name").getValue().toString(),
+                                                singleSnapshot.child("description").getValue().toString(),
+                                                singleSnapshot.child("address").getValue().toString(),
+                                                singleSnapshot.child("addressCity").getValue().toString(),
+                                                singleSnapshot.child("opening_hours").getValue().toString(),
+                                                singleSnapshot.child("site_link").getValue().toString(),
+                                                singleSnapshot.child("facebook_link").getValue().toString(),
+                                                singleSnapshot.child("prices").getValue().toString(),
+                                                singleSnapshot.child("delivery_services").getValue().toString(),
+                                                singleSnapshot.child("phone").getValue().toString(),
+                                                (ArrayList<String>) singleSnapshot.child("pictures").getValue(),
+                                                singleSnapshot.child("video").getValue().toString(),
+                                                singleSnapshot.child("key").getValue().toString(),
+                                                (ArrayList<String>) singleSnapshot.child("reviews").getValue()));
+
+                                    } else {
+                                        if (singleSnapshot.child("pictures") != null) {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    (ArrayList<String>) singleSnapshot.child("pictures").getValue(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    new ArrayList<>()));
+                                        } else if (singleSnapshot.child("reviews") != null) {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    new ArrayList<>(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    (ArrayList<String>) singleSnapshot.child("reviews").getValue()));
+                                        } else {
+                                            businesses.add(new business(
+                                                    singleSnapshot.child("type").getValue().toString(),
+                                                    singleSnapshot.child("name").getValue().toString(),
+                                                    singleSnapshot.child("description").getValue().toString(),
+                                                    singleSnapshot.child("address").getValue().toString(),
+                                                    singleSnapshot.child("addressCity").getValue().toString(),
+                                                    singleSnapshot.child("opening_hours").getValue().toString(),
+                                                    singleSnapshot.child("site_link").getValue().toString(),
+                                                    singleSnapshot.child("facebook_link").getValue().toString(),
+                                                    singleSnapshot.child("prices").getValue().toString(),
+                                                    singleSnapshot.child("delivery_services").getValue().toString(),
+                                                    singleSnapshot.child("phone").getValue().toString(),
+                                                    new ArrayList<>(),
+                                                    singleSnapshot.child("video").getValue().toString(),
+                                                    singleSnapshot.child("key").getValue().toString(),
+                                                    new ArrayList<>()));
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -172,40 +432,55 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         if (v == search) {
+            if (chosen == null) {
+                Toast.makeText(this, "יש לבחור דרך סינון", Toast.LENGTH_SHORT).show();
+            } else {
+                businessAdapter.setBusinessList(new ArrayList<>());
+                recyclerView.setLayoutManager(new LinearLayoutManager(bakeries.this, LinearLayoutManager.HORIZONTAL, false));
+                recyclerView.setAdapter(businessAdapter);
+                if (chosen.equals("סינון לפי עיר")) {
+                    String cityName = "";
+                    byCity = new ArrayList<>();
+                    for (int i = 0; i < businesses.size(); i++) {
+                        if (item.contains(businesses.get(i).getAddressCity())) {
+                            byCity.add(businesses.get(i));
+                        }
+                        else {
+                            if(businesses.get(i).getAddressCity().contains(item)){
+                                byCity.add(businesses.get(i));
+                            }
+                        }
 
-            if (chosen.equals("סינון לפי עיר")) {
-                String cityName = "";
-                for (int j = 0; j < CityDataread.size() && CityDataread.get(j).getCity_Name().compareTo(cityName.trim()) <= 0; j++) {
-                    cityName = CityDataread.get(j).getCity_Name();
-                }
-                for (int i = 0; i < businesses.size(); i++) {
-                    if (CityDataread.get(i).getCity_Name().equals(businesses.get(i).getAddressCity())) {
-                        byCity.add(businesses.get(i));
                     }
-                    businessAdapter businessAdapter = new businessAdapter(byCity, bakeries.this);
-                }
+                    businessAdapter.setBusinessList(byCity);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(bakeries.this, LinearLayoutManager.HORIZONTAL, false));
+                    recyclerView.setAdapter(businessAdapter);
 
-            }
-            if (chosen.equals("מבצעים משלוחים")) {
 
-                for (int i = 0; i < businesses.size(); i++) {
-                    if (!businesses.get(i).getDelivery_services().equals("false")) {
-                        byDelivery.add(businesses.get(i));
+                } else if (chosen.equals("מבצעים משלוחים")) {
+                    byDelivery = new ArrayList<>();
+                    for (int i = 0; i < businesses.size(); i++) {
+                        if (!businesses.get(i).getDelivery_services().equals("false")) {
+                            byDelivery.add(businesses.get(i));
+                        }
                     }
-                }
-                businessAdapter businessAdapter = new businessAdapter(byDelivery, bakeries.this);
-            }
-            if (chosen.equals("גם וגם")) {
-                String cityName = "";
-                for (int j = 0; j < CityDataread.size() && CityDataread.get(j).getCity_Name().compareTo(cityName.trim()) <= 0; j++) {
-                    cityName = CityDataread.get(j).getCity_Name();
-                }
-                for (int i = 0; i < businesses.size(); i++) {
-                    if (CityDataread.get(i).getCity_Name().equals(businesses.get(i).getAddressCity()) && !businesses.get(i).getDelivery_services().equals(false)) {
-                        byBoth.add(businesses.get(i));
+                    businessAdapter.setBusinessList(byDelivery);
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(bakeries.this, LinearLayoutManager.HORIZONTAL, false));
+                    recyclerView.setAdapter(businessAdapter);
+
+                } else if (chosen.equals("גם וגם")) {
+                    String cityName = "";
+                    byBoth = new ArrayList<>();
+                    for (int i = 0; i < businesses.size(); i++) {
+                        if (item.contains(businesses.get(i).getAddressCity()) && !businesses.get(i).getDelivery_services().equals("false")) {
+                            byBoth.add(businesses.get(i));
+                        }
                     }
+                    businessAdapter.setBusinessList(byBoth);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(bakeries.this, LinearLayoutManager.HORIZONTAL, false));
+                    recyclerView.setAdapter(businessAdapter);
                 }
-                businessAdapter businessAdapter = new businessAdapter(byBoth, bakeries.this);
             }
         }
     }
@@ -213,28 +488,23 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
     private List<CityData> CityDataread = new ArrayList<>();
 
     private void readCityData() {
-        InputStream is = getResources().openRawResource(R.raw.data);
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is, Charset.forName("windows-1255"))
-        );
+        InputStream is = getResources().openRawResource(R.raw.city_data);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("windows-1255")));
         String line = "";
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
 
-                String[] tokens = line.split(",");
                 CityData sample = new CityData();
-                sample.setCity_Name(tokens[1].trim());
-                sample.setId_Street(tokens[2]);
-                sample.setStreet_name(tokens[3]);
+                sample.setCity_Name(line);
                 CityDataread.add(sample);
-                if (!list1.contains(tokens[1]))
-                    list1.add(tokens[1]);
+                if (!list1.contains(line))
+                    list1.add(line);
 
 
             }
         } catch (IOException e) {
-            Log.wtf("findData", "Error while reading data file" + line, e);
+            Log.wtf("register", "Error while reading data file" + line, e);
             e.printStackTrace();
         }
     }
@@ -242,7 +512,7 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if (adapterView == cities) {
-            String item = list1.get(i);
+            item = list1.get(i);
 
         }
     }
@@ -328,16 +598,19 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
         }
         if (id == R.id.nav_bakeries) {
             Intent i = new Intent(bakeries.this, bakeries.class);
+            i.putExtra("bakeries", "bakeries");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_restaurants) {
-            Intent i = new Intent(bakeries.this, MainActivity.class);
+            Intent i = new Intent(bakeries.this, bakeries.class);
+            i.putExtra("restaurants", "restaurants");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_shops) {
-            Intent i = new Intent(bakeries.this, MainActivity.class);
+            Intent i = new Intent(bakeries.this, bakeries.class);
+            i.putExtra("shops", "shops");
             startActivity(i);
             finish();
         }

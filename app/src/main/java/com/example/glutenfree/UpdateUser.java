@@ -38,7 +38,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class UpdateUser extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-    TextInputEditText FirstName, LastName, Password, Email;
+    TextInputEditText FirstName, LastName;
     Button button;
     Switch profileType;
 
@@ -60,11 +60,8 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user);
-
         FirstName = findViewById(R.id.etFirstName);
         LastName = findViewById(R.id.etLastName);
-        Password = findViewById(R.id.etPass);
-        Email = findViewById(R.id.etEmail);
         button = findViewById(R.id.send);
         button.setOnClickListener(this);
         profileType = (Switch) findViewById(R.id.profileType);
@@ -108,22 +105,12 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
             try {
                 firstName = FirstName.getText().toString();
                 lastName = LastName.getText().toString();
-                password = Password.getText().toString();
-                email = Email.getText().toString();
                 check.setInputEditText(FirstName);
                 if (!check.checkName(firstName)) {
                     throw new Exception();
                 }
                 check.setInputEditText(LastName);
                 if (!check.checkName(lastName)) {
-                    throw new Exception();
-                }
-                check.setInputEditText(Password);
-                if (!check.checkPass(password)) {
-                    throw new Exception();
-                }
-                check.setInputEditText(Email);
-                if (!check.checkMail(email)) {
                     throw new Exception();
                 }
 
@@ -136,9 +123,7 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
             p.show();
             databaseReference.child("firstName").setValue(firstName);
             databaseReference.child("lastName").setValue(lastName);
-            databaseReference.child("email").setValue(email);
-            databaseReference.child("profilleType").setValue(profileType.isChecked());
-            editor.putString("mail", email.toString());
+            databaseReference.child("profileType").setValue(profileType.isChecked());
             editor.putString("firstName", firstName.toString());
             editor.putString("lastName", lastName.toString());
             editor.putString("profileType", profileType.isChecked() + "");
@@ -227,16 +212,19 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
         }
         if (id == R.id.nav_bakeries) {
             Intent i = new Intent(UpdateUser.this, bakeries.class);
+            i.putExtra("bakeries", "bakeries");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_restaurants) {
-            Intent i = new Intent(UpdateUser.this, MainActivity.class);
+            Intent i = new Intent(UpdateUser.this, bakeries.class);
+            i.putExtra("restaurants", "restaurants");
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_shops) {
-            Intent i = new Intent(UpdateUser.this, MainActivity.class);
+            Intent i = new Intent(UpdateUser.this, bakeries.class);
+            i.putExtra("shops", "shops");
             startActivity(i);
             finish();
         }
