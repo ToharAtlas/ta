@@ -47,7 +47,7 @@ public class celiacDay extends AppCompatActivity implements NavigationView.OnNav
     String countDate;
     SliderView sliderView;
     int[] images = {R.drawable.celiac_day1,
-            R.drawable.celiac_day2,R.drawable.celiac_day3,R.drawable.celiac_day4,};
+            R.drawable.celiac_day2, R.drawable.celiac_day3, R.drawable.celiac_day4,};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class celiacDay extends AppCompatActivity implements NavigationView.OnNav
             sliderView.setSliderAdapter(sliderAdapter);
             sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
             sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
-        sliderView.startAutoCycle();
+            sliderView.startAutoCycle();
 
             countdownView = findViewById(R.id.countdownView);
             sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -141,12 +141,6 @@ public class celiacDay extends AppCompatActivity implements NavigationView.OnNav
             startActivity(i);
             finish();
         }
-        /*
-        if (id == R.id.nav_info) {
-            Intent i = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }*/
         if (id == R.id.nav_inform) {
             Intent i = new Intent(celiacDay.this, information.class);
             startActivity(i);
@@ -203,9 +197,9 @@ public class celiacDay extends AppCompatActivity implements NavigationView.OnNav
     @Override
     protected void onStart() {
         super.onStart();
-        Dialog dialog=new Dialog(this);
-        registerReceiver(new WifiReceiver(dialog,toolbar), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        registerReceiver(new WifiReceiver(dialog,toolbar), new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+        Dialog dialog = new Dialog(this);
+        registerReceiver(new WifiReceiver(dialog, toolbar), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(new WifiReceiver(dialog, toolbar), new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
     }
 
     @Override

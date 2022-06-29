@@ -252,7 +252,7 @@ public class check_Input {
             }
             for (i = 0; i < phone.length(); i++) {
                 if (!(phone.charAt(i) >= '0' &&
-                        phone.charAt(i) <= '9'&&  phone.charAt(i)== '-')) {
+                        phone.charAt(i) <= '9' && phone.charAt(i) == '-')) {
 
                     f = false;
                     throw new Exception("מס' טלפון חייב להכיל ספרות בלבד");

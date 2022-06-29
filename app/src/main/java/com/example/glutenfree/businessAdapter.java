@@ -199,10 +199,10 @@ public class businessAdapter extends RecyclerView.Adapter<businessAdapter.viewHo
                 }
             });
         }
-        if (!b.getPrices().equals("")){
+        if (!b.getPrices().equals("")) {
             viewHolder.prices.setVisibility(View.VISIBLE);
-        viewHolder.prices.setText("טווח מחירים: " + b.getPrices());
-    }
+            viewHolder.prices.setText("טווח מחירים: " + b.getPrices());
+        }
         if (b.getDelivery_services().equals("false"))
             viewHolder.delivery.setText("העסק אינו מבצע שירותי משלוחים ");
         else
@@ -215,7 +215,6 @@ public class businessAdapter extends RecyclerView.Adapter<businessAdapter.viewHo
                 context.startActivity(intent);
             }
         });
-        
 
 
         if (!b.getVideo().equals("")) {

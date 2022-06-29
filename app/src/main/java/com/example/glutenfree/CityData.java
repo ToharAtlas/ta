@@ -1,9 +1,9 @@
 package com.example.glutenfree;
 
 public class CityData {
-private String City_Name;
-private String id_Street;
-private String Street_name;
+    private String City_Name;
+    private String id_Street;
+    private String Street_name;
 
     public String getCity_Name() {
         return City_Name;

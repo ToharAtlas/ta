@@ -179,11 +179,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener, 
             if (sharedPreferences.getString("profilePic", "").equals("0")) {
                 ContentResolver cR = getContentResolver();
                 MimeTypeMap mime = MimeTypeMap.getSingleton();
-                String t=mime.getExtensionFromMimeType(cR.getType(uri));
+                String t = mime.getExtensionFromMimeType(cR.getType(uri));
                 picname = System.currentTimeMillis() + "." + t;
                 databaseReference.child(sharedPreferences.getString("key", "")).child("profileImage").setValue(picname);
                 editor = sharedPreferences.edit();
-                editor.putString("profilePic",picname);
+                editor.putString("profilePic", picname);
                 editor.commit();
             } else {
                 picname = sharedPreferences.getString("profilePic", "");

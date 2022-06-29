@@ -49,8 +49,7 @@
         android:gravity="right"
         android:text="כתובת בית העסק: "
         android:textColor="@color/cream3"
-        android:textSize="20dp"
-        />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/tvOpeningHours"
@@ -75,7 +74,7 @@
         android:text="אתר בית העסק: "
         android:textColor="@color/cream3"
         android:textSize="20dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvFacebookLink"
@@ -88,7 +87,7 @@
         android:text="עמוד הפייסבוק של בית העסק: "
         android:textColor="@color/cream3"
         android:textSize="20dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvPrices"
@@ -138,12 +137,13 @@
         android:text="גלריית תמונות: "
         android:textColor="@color/cream3"
         android:textSize="20dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/image_slider"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:visibility="gone"
         app:sliderAnimationDuration="600"
         app:sliderAutoCycleDirection="back_and_forth"
         app:sliderAutoCycleEnabled="true"
@@ -156,8 +156,7 @@
         app:sliderIndicatorSelectedColor="#5A5A5A"
         app:sliderIndicatorUnselectedColor="#FFF"
         app:sliderScrollTimeInSec="2"
-        app:sliderStartAutoCycle="true"
-        android:visibility="gone"/>
+        app:sliderStartAutoCycle="true" />
 
     <TextView
         android:id="@+id/tvVid"
@@ -170,7 +169,7 @@
         android:text="סרטון: "
         android:textColor="@color/cream3"
         android:textSize="20dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"

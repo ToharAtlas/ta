@@ -60,7 +60,7 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
     Button search;
     LinearLayout linearLayout1, linearLayout2;
     ImageView Link1, Link2, Link3, Link4;
-    TextView businessType;
+    TextView businessType, text1;
     Spinner filter;
     String item;
     String chosen;
@@ -92,6 +92,7 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_bakeries);
             businessType = findViewById(R.id.businessType);
+            text1 = findViewById(R.id.text1);
             linearLayout1 = findViewById(R.id.linearLayout1);
             linearLayout2 = findViewById(R.id.linearLayout2);
             Link1 = findViewById(R.id.link1_carmit);
@@ -346,6 +347,7 @@ public class bakeries extends AppCompatActivity implements View.OnClickListener,
             if (i.getExtras().getString("shops") != null) {
                 if (i.getExtras().getString("shops").equals("shops")) {
                     businessType.setText("חנויות וחברות מוצרים:");
+                    text1.setVisibility(View.VISIBLE);
                     linearLayout1.setVisibility(View.VISIBLE);
                     linearLayout2.setVisibility(View.VISIBLE);
                     databaseReference.addValueEventListener(new ValueEventListener() {

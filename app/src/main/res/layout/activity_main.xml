@@ -91,6 +91,7 @@
                     android:text="הירשמו לאפליקציה בשביל לצפות בחוות הדעת והתגובות של אנשים אחרים על המסעדות, המאפיות וחנויות מוצרי הצליאק בארץ."
                     android:textColor="#ffffff"
                     android:textSize="20dp" />
+
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"

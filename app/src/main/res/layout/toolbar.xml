@@ -10,5 +10,4 @@
     android:gravity="end"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:textAlignment="textEnd">
-</androidx.appcompat.widget.Toolbar>
+    android:textAlignment="textEnd"></androidx.appcompat.widget.Toolbar>

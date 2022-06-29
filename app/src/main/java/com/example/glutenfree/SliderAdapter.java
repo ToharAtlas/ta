@@ -26,14 +26,14 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
     public Holder onCreateViewHolder(ViewGroup parent) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.slider_item,parent,false);
+                .inflate(R.layout.slider_item, parent, false);
         return new Holder(view);
     }
 
     @Override
     public void onBindViewHolder(Holder viewHolder, int position) {
         Picasso.with(context).load(images.get(position)).into(viewHolder.imageView);
-     //   viewHolder.imageView.setImageURI());
+        //   viewHolder.imageView.setImageURI());
 
     }
 
@@ -42,9 +42,10 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
         return images.size();
     }
 
-    public static class Holder extends SliderViewAdapter.ViewHolder{
+    public static class Holder extends SliderViewAdapter.ViewHolder {
         ImageView imageView;
-        public Holder(View itemView){
+
+        public Holder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image_view);
 

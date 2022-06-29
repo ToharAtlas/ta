@@ -116,7 +116,7 @@ public class videos extends AppCompatActivity implements NavigationView.OnNaviga
             finish();
         }
         if (id == R.id.nav_links) {
-            Intent i = new Intent(videos.this,links.class);
+            Intent i = new Intent(videos.this, links.class);
             startActivity(i);
             finish();
         }

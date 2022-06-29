@@ -100,8 +100,7 @@
                     android:layout_margin="10dp"
                     android:text="הוסף עסק"
                     android:textColor="@color/white"
-                    android:textSize="18dp"
-                     />
+                    android:textSize="18dp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

@@ -58,9 +58,9 @@
                     android:hint="שם פרטי"
                     app:counterEnabled="true"
                     app:counterMaxLength="20"
+                    app:endIconMode="clear_text"
                     app:helperText="*שדה חובה"
                     app:helperTextTextColor="@color/red"
-                    app:endIconMode="clear_text"
                     app:startIconDrawable="@drawable/person_icon">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -106,17 +106,17 @@
                     android:hint="סיסמה"
                     app:counterEnabled="true"
                     app:counterMaxLength="10"
+                    app:endIconMode="password_toggle"
                     app:helperText="*שדה חובה"
                     app:helperTextTextColor="@color/red"
-                    app:endIconMode="password_toggle"
                     app:startIconDrawable="@drawable/icon_lock">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPass"
-                        android:inputType="textPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:inputType="textPassword"
                         android:maxLength="10" />
                 </com.google.android.material.textfield.TextInputLayout>
 

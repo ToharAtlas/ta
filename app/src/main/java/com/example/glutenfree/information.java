@@ -30,7 +30,7 @@ public class information extends AppCompatActivity implements NavigationView.OnN
     AlertDialog ad;
     Toolbar toolbar;
     public DrawerLayout drawerLayout;
-    public EndDrawerToggle drawerToggle ;
+    public EndDrawerToggle drawerToggle;
     NavigationView navigationView;
 
     @Override
@@ -39,17 +39,18 @@ public class information extends AppCompatActivity implements NavigationView.OnN
         setContentView(R.layout.activity_information);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigationView);
-        toolbar=findViewById(R.id.toolbar);
-        View headerView=  navigationView.inflateHeaderView(R.layout.header);
+        toolbar = findViewById(R.id.toolbar);
+        View headerView = navigationView.inflateHeaderView(R.layout.header);
         sharedPreferences = getSharedPreferences("remember_me1", 0);
         if (sharedPreferences.getBoolean("remember_me", false))
             navigationView.inflateMenu(R.menu.menu_connected);
         else
             navigationView.inflateMenu(R.menu.main_menu);
         navigationView.setNavigationItemSelectedListener(this);
-        drawerToggle = new EndDrawerToggle( drawerLayout,toolbar, R.string.open, R.string.close);
+        drawerToggle = new EndDrawerToggle(drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -98,19 +99,13 @@ public class information extends AppCompatActivity implements NavigationView.OnN
             startActivity(i);
             finish();
         }
-        /*
-        if (id == R.id.nav_info) {
-            Intent i = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }*/
         if (id == R.id.nav_inform) {
             Intent i = new Intent(information.this, information.class);
             startActivity(i);
             finish();
         }
         if (id == R.id.nav_links) {
-            Intent i = new Intent(information.this,links.class);
+            Intent i = new Intent(information.this, links.class);
             startActivity(i);
             finish();
         }
@@ -144,6 +139,7 @@ public class information extends AppCompatActivity implements NavigationView.OnN
         }
         return false;
     }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -159,9 +155,9 @@ public class information extends AppCompatActivity implements NavigationView.OnN
     @Override
     protected void onStart() {
         super.onStart();
-        Dialog dialog=new Dialog(this);
-        registerReceiver(new WifiReceiver(dialog,toolbar), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        registerReceiver(new WifiReceiver(dialog,toolbar), new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+        Dialog dialog = new Dialog(this);
+        registerReceiver(new WifiReceiver(dialog, toolbar), new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(new WifiReceiver(dialog, toolbar), new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
     }
 
     @Override
