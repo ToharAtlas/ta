@@ -86,7 +86,7 @@ public class check_Input {
 
     public boolean checkMail(String mail) {
         boolean f = true;
-        int i, j, counter;
+        int i, j, counter = 0;
         try {
             if (mail.length() == 0) {
                 f = false;
@@ -127,8 +127,6 @@ public class check_Input {
                 if (vec2[i].length() < 2) {
                     f = false;
                     throw new Exception("חובה לשים לפחות 2 תווים בין הנקודות באימייל");
-
-
                 }
             if (vec2.length == 2 && vec2[1].length() != 3) {
                 f = false;
@@ -139,8 +137,9 @@ public class check_Input {
                 throw new Exception("חובה 2 תווים בדיוק אחרי הנקודה האחרונה");
             }
             for (i = 0; i < mail.length(); i++) {
-                if (mail.toString().charAt(i) == ' ')
-                    throw new Exception("מייל אינו יכול להכיל רווחים");
+                if (mail.toString().charAt(i) == ' '){
+                    f=false;
+                    throw new Exception("מייל אינו יכול להכיל רווחים");}
             }
 
         } catch (Exception e) {
@@ -198,7 +197,7 @@ public class check_Input {
         try {
             if (businessAddress.length() == 0) {
                 f = false;
-                throw new Exception("יש להזין את העיר בו נמאצ העסק, או הערים בו נמצאים סניפי העסק");
+                throw new Exception("יש להזין את העיר בו נמצא העסק, או הערים בו נמצאים סניפי העסק");
             }
         } catch (Exception e) {
             inputEditText.setError(e.getMessage());
@@ -250,14 +249,15 @@ public class check_Input {
 
 
             }
+            f=true;
             for (i = 0; i < phone.length(); i++) {
                 if (!(phone.charAt(i) >= '0' &&
-                        phone.charAt(i) <= '9' && phone.charAt(i) == '-')) {
-
+                        phone.charAt(i) <= '9')) {
                     f = false;
                     throw new Exception("מס' טלפון חייב להכיל ספרות בלבד");
                 }
             }
+            f=true;
             if ((!phone.startsWith("050")) && (!phone.startsWith("052")) && (!phone.startsWith("053")) && (!phone.startsWith("054")) && (!phone.startsWith("055")) && (!phone.startsWith("057")) && (!phone.startsWith("058")) && (!phone.startsWith("077")) && (!phone.startsWith("08") && (!phone.startsWith("03")))) {
                 f = false;
                 throw new Exception("הקידומת אינה תקינה");

@@ -275,7 +275,6 @@ public class businessAdapter extends RecyclerView.Adapter<businessAdapter.viewHo
     public class viewHolder extends RecyclerView.ViewHolder {
         TextView businessName, businessDescription, businessAddress, openingHours, siteLink, facebookLink, prices, delivery, phone, gallery, vid;
         EditText etEditTextReviews;
-        RatingBar ratingBar;
         Button add;
         SliderView sliderView;
         com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView youTubePlayerView;

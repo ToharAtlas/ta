@@ -86,8 +86,7 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FirstName.setHint(dataSnapshot.child("firstName").getValue().toString());
                 LastName.setHint(dataSnapshot.child("lastName").getValue().toString());
-                //     Password.setHint( dataSnapshot.child("password").getValue().toString());
-                //    Email.setHint( dataSnapshot.child("email").getValue().toString());
+
                 profileType.setChecked(Boolean.parseBoolean(dataSnapshot.child("profileType").getValue().toString()));
             }
 
@@ -113,7 +112,6 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
                 if (!check.checkName(lastName)) {
                     throw new Exception();
                 }
-
             } catch (Exception e) {
                 if (e.getMessage() != null)
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -131,7 +129,6 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
             Intent intent = new Intent(UpdateUser.this, Profile.class);
             startActivity(intent);
             finish();
-
 
         }
     }

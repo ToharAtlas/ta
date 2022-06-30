@@ -123,17 +123,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 if (!check.checkMail(mail)) {
                     throw new Exception();
                 }
+
                 p = new ProgressDialog(this);
                 p.setMessage("הרשמה מתבצעת כעת");
                 p.show();
                 firebaseAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(this).addOnFailureListener(this);
-
-
             } catch (Exception e) {
-                if (e.getMessage() != null)
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                if (e.getMessage() != null) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
-
         }
     }
 
@@ -160,7 +159,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         p = new ProgressDialog(this);
         p.setMessage("הרשמה");
         p.show();
-        //  if (isValidate())
         firebaseAuth.createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString());
     }
 
@@ -242,7 +240,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             finish();
         }
         if (id == R.id.nav_links) {
-            Intent i = new Intent(Registration.this,links.class);
+            Intent i = new Intent(Registration.this, links.class);
             startActivity(i);
             finish();
         }
