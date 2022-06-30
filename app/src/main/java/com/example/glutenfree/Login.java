@@ -89,6 +89,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Na
     @Override
     public void onClick(View v) {
         try {
+            if (!checkbox.isChecked()) {
+                throw new Exception("יש לסמן את תיבת הזכור אותי");
+            }
             password = Password.getText().toString();
             email = Email.getText().toString();
             check.setInputEditText(Email);
